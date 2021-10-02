@@ -1,16 +1,24 @@
-import RPi.GPIO as GPIO
-import time
 import threading
+import time
+"""
+import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.OUT)
 GPIO.setup(20, GPIO.OUT)
 GPIO.setup(21, GPIO.OUT)
 GPIO.setup(19, GPIO.IN)
+"""
 
 Lights_On = 1
 
+#"""
 def onOff():
+    import RPi.GPIO as GPIO
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(19, GPIO.IN)
+    
     global Lights_On
+    
     while True:
         if GPIO.input(19):
             Lights_On *= -1
@@ -18,7 +26,14 @@ def onOff():
         time.sleep(0.005)
 
 def lights():
+    import RPi.GPIO as GPIO
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(18, GPIO.OUT)
+    GPIO.setup(20, GPIO.OUT)
+    GPIO.setup(21, GPIO.OUT)
+    
     global Lights_On
+
     while True:
         if Lights_On == 1:
             GPIO.output(20, False)
@@ -42,5 +57,6 @@ if __name__ == "__main__":
     t2 = threading.Thread(target = lights)
     t1.start()
     t2.start()
+#"""
 
-GPIO.cleanup()
+#GPIO.cleanup()
